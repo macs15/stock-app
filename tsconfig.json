@@ -21,7 +21,8 @@
       "@organisms/*": ["components/organisms/*"],
       "@templates/*": ["components/templates/*"],
       "@services/*": ["components/services/*"],
-      "@hooks/*": ["components/hooks/*"]
+      "@hooks/*": ["components/hooks/*"],
+      "@interfaces/*": ["components/interfaces/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
