@@ -6,15 +6,16 @@ const colors = {
   success: 'text-green-500'
 }
 
-const TextAlert: FC<TextAlertProps> = ({ text, type = 'error' }) => {
-  return <p className={`${colors[type]}`}>{text}</p>
+const TextAlert: FC<TextAlertProps> = ({ text, className = '', type = 'error' }) => {
+  return <p className={`${colors[type]} ${className}`}>{text}</p>
 }
 
 interface TextAlertProps {
   text: string
+  className?: string
   type?: Types
 }
 
-type Types = keyof typeof colors
+export type Types = keyof typeof colors
 
 export default TextAlert

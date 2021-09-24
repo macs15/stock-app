@@ -1,4 +1,5 @@
-import ProductService from "@services/product-service"
+import { Products } from '@interfaces/product-service.interface'
+import ProductService from '@services/product-service'
 
 const productService = new ProductService()
 
@@ -9,6 +10,10 @@ export const productsAPI = {
   },
   getProducts: async () => {
     const response = await productService.getProducts()
+    return response
+  },
+  createProduct: async (product: Products) => {
+    const response = await productService.createProduct(product)
     return response
   }
 }

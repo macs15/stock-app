@@ -25,7 +25,7 @@ const ProductList: FC<ProductListProps> = ({ products }) => {
       </thead>
       <tbody>
         {products.length ? (
-          products.map(p => <ProductItem key={p.cod} product={p} />)
+          products.reverse().map(p => <ProductItem key={p.cod} product={p} />)
         ) : (
           <EmptyTransactions className="w-full" colSpan={6} />
         )}

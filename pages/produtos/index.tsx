@@ -5,11 +5,12 @@ import useProducts from '@hooks/useProducts'
 import Modal from '@molecules/Modal'
 import ProductForm from '@organisms/ProductForm'
 import ProductList from '@organisms/ProductList'
+import { useProductsContext } from 'components/context/productContext'
 import { useRef } from 'react'
 import { useClickAway } from 'react-use'
 
 const ProductsPage = () => {
-  const { products } = useProducts()
+  const { products } = useProductsContext()
   const { open, openModal, closeModal } = useModal()
   const ref = useRef<HTMLDivElement>(null)
   useClickAway(ref, closeModal)
