@@ -21,15 +21,24 @@ const ProductList: FC<ProductListProps> = ({ products }) => {
           <th>Categoria</th>
           <th>Costo proveedor</th>
           <th>Estoque</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         {products.length ? (
-          products.reverse().map(p => <ProductItem key={p.cod} product={p} />)
+          products
+            .slice(0)
+            .reverse()
+            .map(p => <ProductItem key={p.id} product={p} />)
         ) : (
           <EmptyTransactions className="w-full" colSpan={6} />
         )}
       </tbody>
+      <tfoot className="bg-gray-100">
+        <tr className="w-full">
+          <td colSpan={6}>Total: {products.length}</td>
+        </tr>
+      </tfoot>
     </table>
   )
 }

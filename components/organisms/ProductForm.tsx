@@ -19,13 +19,16 @@ const ProductForm = () => {
   } = useForm<Products>({ resolver: joiResolver(ProductFormSchema) })
   const { setProducts, products } = useProductsContext()
   const [notify, setNotify] = useState<Notify | null>(null)
+  const [sending, setSending] = useState(false)
 
   const onSubmit: SubmitHandler<Products> = async (data, e) => {
+    setSending(true)
     const newProduct = await productsAPI.createProduct(data)
 
     if (!newProduct) {
       /* Generic error because our API has no a properly error handler */
       setNotify({ message: 'Houve um erro no envio dos dados', type: 'error' })
+      setSending(false)
       setTimeout(() => {
         setNotify(null)
       }, 5000)
@@ -34,6 +37,7 @@ const ProductForm = () => {
 
     setProducts(products?.length ? [...products, newProduct] : [newProduct])
     setNotify({ message: 'dados enviados com sucesso', type: 'success' })
+    setSending(false)
     reset()
 
     setTimeout(() => {
@@ -92,7 +96,9 @@ const ProductForm = () => {
 
       {notify && <TextAlert text={notify.message} type={notify.type} />}
       <input
+        disabled={sending}
         type="submit"
+        value={sending ? 'Enviando...' : 'Enviar'}
         className="bg-blue-500 hover:bg-blue-600 transition-colors text-white font-semibold cursor-pointer py-2 rounded-md mt-5"
       />
 

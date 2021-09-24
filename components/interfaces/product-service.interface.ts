@@ -1,7 +1,7 @@
 import { Category } from '../helpers/categories-data'
 
 export interface Products {
-  cod: number
+  id: number
   name: string
   description: string
   category: Category
