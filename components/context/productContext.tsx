@@ -1,22 +1,26 @@
 import useProducts from '@hooks/useProducts'
 import { Products } from '@interfaces/product-service.interface'
-import { createContext, FC, ReactNode, useContext } from 'react'
+import { createContext, FC, useContext } from 'react'
 
 interface ContextProps {
   products: Products[] | undefined
   setProducts: (products: Products[]) => void
+  currentProduct: Products | undefined
+  setCurrentProduct: (product: Products | undefined) => void
 }
 
 export const ProductsContext = createContext({} as ContextProps)
 
 export const ProductsProvider: FC = ({ children }) => {
-  const { products, setProducts } = useProducts()
+  const { products, setProducts, currentProduct, setCurrentProduct } = useProducts()
 
   return (
     <ProductsContext.Provider
       value={{
         setProducts,
-        products
+        products,
+        currentProduct,
+        setCurrentProduct
       }}
     >
       {children}

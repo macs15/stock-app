@@ -36,7 +36,7 @@ const ProductList: FC<ProductListProps> = ({ products }) => {
       </tbody>
       <tfoot className="bg-gray-100">
         <tr className="w-full">
-          <td colSpan={6}>Total: {products.length}</td>
+          <td colSpan={7}>Produtos total: {products.length}</td>
         </tr>
       </tfoot>
     </table>

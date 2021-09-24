@@ -4,19 +4,22 @@ import { categories } from '@helpers/categories-data'
 import { ProductFormSchema } from '@helpers/product-form-schema'
 import { joiResolver } from '@hookform/resolvers/joi'
 import { Products } from '@interfaces/product-service.interface'
-import { useState } from 'react'
+import { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { useProductsContext } from '../context/productContext'
 import { productsAPI } from '../helpers/api/product'
 
-const ProductForm = () => {
+const ProductForm: FC<ProductFormProps> = ({ defaultValues }) => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<Products>({ resolver: joiResolver(ProductFormSchema) })
+  } = useForm<Products>({
+    resolver: joiResolver(ProductFormSchema),
+    ...(defaultValues && defaultValues)
+  })
   const { setProducts, products } = useProductsContext()
   const [notify, setNotify] = useState<Notify | null>(null)
   const [sending, setSending] = useState(false)
@@ -51,6 +54,7 @@ const ProductForm = () => {
       onSubmit={handleSubmit(onSubmit)}
     >
       <InputForm
+        defaultValue={defaultValues?.name}
         placeholder="Nome do produto"
         labelText="Nome do produto"
         register={() => register('name')}
@@ -109,6 +113,10 @@ const ProductForm = () => {
       />
     </form>
   )
+}
+
+type ProductFormProps = {
+  defaultValues?: Products
 }
 
 type Notify = {

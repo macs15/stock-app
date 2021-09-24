@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 
 const useProducts = () => {
   const [products, setProducts] = useState<Products[]>()
+  const [currentProduct, setCurrentProduct] = useState<Products | undefined>()
 
   const getProducts = async () => {
     const productsResponse = await productsAPI.getProducts()
@@ -14,7 +15,7 @@ const useProducts = () => {
     getProducts()
   }, [])
 
-  return { products, setProducts }
+  return { products, setProducts, currentProduct, setCurrentProduct }
 }
 
 export default useProducts

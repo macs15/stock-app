@@ -1,19 +1,22 @@
 import Button from '@atoms/Button'
 import NavigationBar from '@atoms/NavigationBar'
-import useModal from '@hooks/useModal'
-import useProducts from '@hooks/useProducts'
 import Modal from '@molecules/Modal'
 import ProductForm from '@organisms/ProductForm'
 import ProductList from '@organisms/ProductList'
+import { useModalContext } from 'components/context/modalContext'
 import { useProductsContext } from 'components/context/productContext'
 import { useRef } from 'react'
 import { useClickAway } from 'react-use'
 
 const ProductsPage = () => {
-  const { products } = useProductsContext()
-  const { open, openModal, closeModal } = useModal()
+  const { products, currentProduct, setCurrentProduct } = useProductsContext()
+  const { open, openModal, closeModal } = useModalContext()
   const ref = useRef<HTMLDivElement>(null)
-  useClickAway(ref, closeModal)
+  useClickAway(ref, () => {
+    /* clearing form */
+    closeModal()
+    setCurrentProduct(undefined)
+  })
 
   return (
     <div className="w-full mt-24 mb-5">
@@ -24,7 +27,7 @@ const ProductsPage = () => {
       <Modal ref={ref} open={open}>
         <div className="h-full flex flex-col justify-center items-center">
           <h3 className="text-xl mt-5 font-semibold">Novo produto</h3>
-          <ProductForm />
+          {open && <ProductForm defaultValues={currentProduct} />}
         </div>
       </Modal>
 
