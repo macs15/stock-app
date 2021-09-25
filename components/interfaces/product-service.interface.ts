@@ -1,13 +1,10 @@
+import { Category } from '../helpers/categories-data'
+
 export interface Products {
-  cod: number
+  id: number
+  name: string
   description: string
   category: Category
   provider_cost: number
   in_stock: number
-}
-
-export enum Category {
-  Eletrodoméstico = 'Eletrodoméstico',
-  Eletrônico = 'Eletrônico',
-  Móvel = 'móvel'
 }

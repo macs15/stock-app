@@ -82,7 +82,7 @@ export default class HttpRequest implements HttpRequestParams {
 
   delete(id: string | number) {
     try {
-      return axios.post(`${this.urlBuilder()}/${id}`, {
+      return axios.delete(`${this.urlBuilder()}/${id}`, {
         headers: this.headers
       })
     } catch (err) {

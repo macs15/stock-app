@@ -1,11 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
+  --background-color: #f9f9fb;
+  --font-color: #4f4f4f;
+  --header-height: 60px;
+  --modal-width: 40vh;
+  --modal-max-width: 700px;
+  --table-max-height: 1000px;
+  --action-min-height: 300px;
+
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  background-color: #16161a;
-  color: #fffffa;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+  background-color: var(--background-color);
+  color: var(--font-color);
 }
 
 a {
@@ -15,4 +28,76 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.header {
+  height: var(--header-height);
+}
+
+.sidebar {
+  top: var(--header-height);
+  height: calc(calc(100vh - var(--header-height)) - 2.5rem);
+}
+
+.action-section {
+  min-height: var(--action-min-height);
+}
+
+tbody {
+  max-height: var(--table-max-height);
+}
+
+tr {
+  min-width: 600px;
+}
+
+.table-section {
+  max-width: 1000px;
+}
+
+.table-section thead {
+  top: var(--header-height);
+}
+
+.description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  padding-bottom: 0;
+}
+
+tr:nth-child(2n + 2) {
+  background-color: #d4d3d3;
+}
+
+tr.item-active {
+  background-color: rgba(219, 234, 254, 1);
+}
+
+.meatball-menu {
+  left: 100%;
+}
+
+.modal {
+  width: 0;
+  height: calc(100vh - var(--header-height));
+  top: 0;
+  margin-top: var(--header-height);
+  transition: width 0.15s ease-out;
+  overflow: hidden;
+  max-width: var(--modal-width);
+}
+
+.modal.open {
+  width: var(--modal-max-width);
+  transition: width 0.25s ease-in;
+}
+
+@media (max-width: 1440px) {
+  .meatball-menu {
+    right: 100%;
+    left: auto;
+  }
 }
