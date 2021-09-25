@@ -11,7 +11,6 @@ const EntryForm: FC<useEntryFormProps> = ({ activeProduct }) => {
 
   useEffect(() => {
     setValue('pricePerProduct', provider_cost)
-    console.log('aqui')
   }, [])
 
   return (

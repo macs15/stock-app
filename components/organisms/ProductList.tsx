@@ -1,9 +1,12 @@
 import EmptyTransactions from '@atoms/EmptyTransactions'
 import ProductItem from '@atoms/ProductItem'
 import { Products } from '@interfaces/product-service.interface'
+import { useProductsContext } from 'components/context/productContext'
 import { FC } from 'react'
 
 const ProductList: FC<ProductListProps> = ({ products }) => {
+  const { category } = useProductsContext()
+
   if (!products)
     return (
       <div className="w-full h-full flex items-center justify-center">
@@ -15,16 +18,17 @@ const ProductList: FC<ProductListProps> = ({ products }) => {
     <table
       cellSpacing={12}
       cellPadding={12}
-      className="w-full h-full shadow-md rounded-md bg-white relative"
+      className="w-full shadow-md rounded-md bg-white relative"
     >
       <thead className="bg-gray-100 sticky top-0 z-10">
         <tr>
           <th>Código</th>
           <th>Nome</th>
-          <th>Descrição</th>
+          {!category && <th>Descrição</th>}
           <th>Categoria</th>
           <th>Estoque</th>
           <th>Costo proveedor</th>
+          {category && <th>Total saída</th>}
           <th></th>
         </tr>
       </thead>

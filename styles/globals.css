@@ -10,6 +10,7 @@ body {
   --modal-width: 40vh;
   --modal-max-width: 700px;
   --table-max-height: 1000px;
+  --action-min-height: 300px;
 
   padding: 0;
   margin: 0;
@@ -36,6 +37,10 @@ a {
 .sidebar {
   top: var(--header-height);
   height: calc(calc(100vh - var(--header-height)) - 2.5rem);
+}
+
+.action-section {
+  min-height: var(--action-min-height);
 }
 
 tbody {
@@ -88,4 +93,11 @@ tr.item-active {
 .modal.open {
   width: var(--modal-max-width);
   transition: width 0.25s ease-in;
+}
+
+@media (max-width: 1440px) {
+  .meatball-menu {
+    right: 100%;
+    left: auto;
+  }
 }

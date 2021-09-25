@@ -4,13 +4,22 @@ import { useEffect, useState } from 'react'
 
 const useProducts = () => {
   const [products, setProducts] = useState<Products[]>()
+  const [productsBase, setProductsBase] = useState<Products[]>()
   const [currentProduct, setCurrentProduct] = useState<Products | undefined>()
   const [activeProduct, setActiveProduct] = useState<Products | undefined>()
   const [activeTab, setActiveTab] = useState<string>('products')
+  const [category, setCategory] = useState<string>('')
+
+  const getProductsByCategory = () => {
+    if (!category) return productsBase
+    const updatedProducts = (productsBase || []).filter(p => p.category === category)
+    return updatedProducts
+  }
 
   const getProducts = async () => {
     const productsResponse = await productsAPI.getProducts()
     setProducts(productsResponse)
+    setProductsBase(productsResponse)
   }
 
   useEffect(() => {
@@ -21,6 +30,10 @@ const useProducts = () => {
     setActiveProduct(undefined)
   }, [activeTab])
 
+  useEffect(() => {
+    setProducts(getProductsByCategory())
+  }, [category])
+
   return {
     products,
     setProducts,
@@ -29,7 +42,11 @@ const useProducts = () => {
     activeProduct,
     setActiveProduct,
     activeTab,
-    setActiveTab
+    setActiveTab,
+    productsBase,
+    setProductsBase,
+    category,
+    setCategory
   }
 }
 

@@ -54,6 +54,7 @@ const useSellForm = (activeProduct: Products, type: TransactionType) => {
       date: new Date(),
       product_id: id,
       transaction_type: type === 'entry' ? 'Entrada' : 'Saída',
+      price_per_product: pricePerProduct,
       total_price: pricePerProduct * productQty,
       quantity: productQty
     }

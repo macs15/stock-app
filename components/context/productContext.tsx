@@ -4,13 +4,17 @@ import { createContext, FC, useContext } from 'react'
 
 interface ContextProps {
   products: Products[] | undefined
+  productsBase: Products[] | undefined
   currentProduct: Products | undefined
   activeProduct: Products | undefined
   activeTab: string
+  category: string
   setProducts: (products: Products[]) => void
+  setProductsBase: (prodcuts: Products[]) => void
   setCurrentProduct: (product?: Products) => void
   setActiveProduct: (product?: Products) => void
   setActiveTab: (tab: string) => void
+  setCategory: (category: string) => void
 }
 
 export const ProductsContext = createContext({} as ContextProps)
@@ -24,7 +28,11 @@ export const ProductsProvider: FC = ({ children }) => {
     setActiveProduct,
     activeProduct,
     activeTab,
-    setActiveTab
+    setActiveTab,
+    productsBase,
+    setProductsBase,
+    category,
+    setCategory
   } = useProducts()
 
   return (
@@ -37,7 +45,11 @@ export const ProductsProvider: FC = ({ children }) => {
         activeProduct,
         setActiveProduct,
         activeTab,
-        setActiveTab
+        setActiveTab,
+        productsBase,
+        setProductsBase,
+        category,
+        setCategory
       }}
     >
       {children}

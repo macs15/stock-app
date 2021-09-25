@@ -15,6 +15,13 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
     setActiveTab({ active: false, tab: null })
   }, [activeProduct, currentProduct])
 
+  const getSidebarTitle = () => {
+    if (!active) return 'Menu de entrada/saída'
+    if (tab === 'sell') return 'Nova venda'
+    if (tab === 'entry') return 'Cadastrar entrada'
+    return 'Lucro do produto'
+  }
+
   const handleNewSell = () => {
     setActiveTab({ tab: 'sell', active: true })
   }
@@ -23,8 +30,12 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
     setActiveTab({ tab: 'entry', active: true })
   }
 
+  const handleProductProfit = () => {
+    setActiveTab({ tab: 'profit', active: true })
+  }
+
   return (
-    <div className={`w-full ${activeProduct ? '' : 'h-32'}`}>
+    <div className={`w-full action-section ${activeProduct ? '' : 'h-32'}`}>
       <div className="relative">
         {active && (
           <button
@@ -35,9 +46,7 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
             Voltar
           </button>
         )}
-        <h3 className="text-lg font-bold">
-          {active ? (tab === 'sell' ? 'Nova venda' : 'Cadastrar entrada') : 'Ações'}
-        </h3>
+        <h3 className="text-lg font-bold border-b border-gray-200 pb-5">{getSidebarTitle()}</h3>
         {activeProduct && (
           <div className="relative">
             <h3 className="w-full text-lg font-semibold my-5 whitespace-nowrap overflow-ellipsis overflow-hidden">
@@ -54,6 +63,11 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
             className="w-full mt-5 shadow-md"
             text="Cadastrar entrada"
           />
+          <Button
+            onClick={handleProductProfit}
+            className="w-full mt-5 shadow-md"
+            text="Mostrar lucro"
+          />
         </div>
       )}
 
@@ -63,6 +77,7 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
 
       {tab === 'sell' && activeProduct && <SellForm activeProduct={activeProduct} />}
       {tab === 'entry' && activeProduct && <EntryForm activeProduct={activeProduct} />}
+      {tab === 'profit' && activeProduct && <EntryForm activeProduct={activeProduct} />}
     </div>
   )
 }
@@ -70,7 +85,7 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
 type ActionsSectionProps = {}
 
 type ActiveTab = {
-  tab: 'sell' | 'entry' | null
+  tab: 'sell' | 'entry' | 'profit' | null
   active: boolean
 }
 
