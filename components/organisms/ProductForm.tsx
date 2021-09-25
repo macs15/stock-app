@@ -40,6 +40,7 @@ const ProductForm: FC<ProductFormProps> = ({ values }) => {
 
       <InputForm
         labelText="Custo unitário"
+        step={0.01}
         type="number"
         placeholder="Custo unitário"
         onFocus={({ target }) => target.select()}

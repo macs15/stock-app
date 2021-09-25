@@ -1,4 +1,5 @@
 import { categories } from '@helpers/categories-data'
+import { LOCALE } from '@helpers/constants'
 import { Products } from '@interfaces/product-service.interface'
 import ProductMenu from '@molecules/ProductMenu'
 import { useHistoricalContext } from 'components/context/historicalContext'
@@ -7,8 +8,6 @@ import { useClickAway } from 'react-use'
 
 import { useProductsContext } from '../context/productContext'
 import Meatballs from './Meatballs'
-
-const LOCALE = 'pt-BR'
 
 const ProductItem: FC<ProductItemProps> = ({ product }) => {
   const [open, setOpen] = useState(false)
@@ -38,7 +37,9 @@ const ProductItem: FC<ProductItemProps> = ({ product }) => {
       className={`cursor-pointer hover:bg-blue-100 transition ${isActive ? 'item-active' : ''}`}
     >
       <td>{id}</td>
-      <td className="whitespace-nowrap font-semibold">{name}</td>
+      <td className="whitespace-nowrap font-semibold max-w-xs overflow-ellipsis  overflow-hidden">
+        {name}
+      </td>
       {!activeCategory && <td className="description mb-2 -mt-1">{description}</td>}
       <td>{categories[category]}</td>
       <td>{inStock}</td>

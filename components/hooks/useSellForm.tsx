@@ -54,7 +54,7 @@ const useSellForm = (activeProduct: Products, type: TransactionType) => {
       date: new Date(),
       product_id: id,
       transaction_type: type === 'entry' ? 'Entrada' : 'Saída',
-      price_per_product: pricePerProduct,
+      price_per_product: provider_cost,
       total_price: pricePerProduct * productQty,
       quantity: productQty
     }
@@ -73,7 +73,7 @@ const useSellForm = (activeProduct: Products, type: TransactionType) => {
       })
     }
 
-    if (!historicalResponse) {
+    if (!historicalResponse || !productResponse) {
       /* Generic error because our API has no a properly error handler */
       setError('pricePerProduct', { message: 'Houve um erro no envio dos dados', type: 'manual' })
       setSending(false)

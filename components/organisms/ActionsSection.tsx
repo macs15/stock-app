@@ -3,6 +3,7 @@ import { FC, useEffect, useState } from 'react'
 
 import { useProductsContext } from '../context/productContext'
 import EntryForm from './EntryForm'
+import ProfitSection from './ProfitSection'
 import SellForm from './SellForm'
 
 const ActionsSection: FC<ActionsSectionProps> = ({}) => {
@@ -77,7 +78,7 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
 
       {tab === 'sell' && activeProduct && <SellForm activeProduct={activeProduct} />}
       {tab === 'entry' && activeProduct && <EntryForm activeProduct={activeProduct} />}
-      {tab === 'profit' && activeProduct && <EntryForm activeProduct={activeProduct} />}
+      {tab === 'profit' && activeProduct && <ProfitSection activeProduct={activeProduct} />}
     </div>
   )
 }

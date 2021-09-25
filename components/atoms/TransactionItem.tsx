@@ -1,10 +1,9 @@
 import 'dayjs/locale/pt-br'
 
+import { LOCALE } from '@helpers/constants'
 import { HistoricalStock } from '@interfaces/historical-service.interface'
 import dayjs from 'dayjs'
 import { FC } from 'react'
-
-const LOCALE = 'pt-BR'
 
 const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
   const { id, product_id, total_price, price_per_product, transaction_type, date, quantity } =
@@ -17,6 +16,7 @@ const TransactionItem: FC<TransactionItemProps> = ({ transaction }) => {
       <td>{dayjs(date).format('DD MM YY hh:mma')}</td>
       <td>{quantity}</td>
       <td>R$ {(price_per_product || 0).toLocaleString(LOCALE)}</td>
+      <td>R$ {(total_price / quantity).toLocaleString(LOCALE)}</td>
       <td>R$ {total_price.toLocaleString(LOCALE)}</td>
     </tr>
   )

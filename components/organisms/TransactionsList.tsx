@@ -16,24 +16,23 @@ const TransactionsList: FC<TransactionsListProps> = ({ transactions }) => {
             <th align="left">Produto</th>
             <th align="left">Tipo movimentação</th>
             <th align="left">Data</th>
-            <th align="left">Quantidade</th>
-            <th align="left">Preço/produto</th>
+            <th align="left">Quantid.</th>
+            <th align="left">Preço fornecedor</th>
+            <th align="left">Preço venda</th>
             <th align="left">Total</th>
           </tr>
         </thead>
-        {transactions.length ? (
-          <tbody className="text-left h-full">
-            {/* Slice because we can't reverse the main array */}
-            {transactions
+        <tbody className="text-left h-full">
+          {/* Slice because we can't reverse the main array */}
+          {transactions.length ? (
+            transactions
               .slice(0)
               .reverse()
-              .map(t => (
-                <TransactionItem key={t.id} transaction={t} />
-              ))}
-          </tbody>
-        ) : (
-          <EmptyTransactions />
-        )}
+              .map(t => <TransactionItem key={t.id} transaction={t} />)
+          ) : (
+            <EmptyTransactions colSpan={7} className="w-full text-center" />
+          )}
+        </tbody>
       </table>
     </section>
   )

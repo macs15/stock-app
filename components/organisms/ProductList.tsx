@@ -22,7 +22,7 @@ const ProductList: FC<ProductListProps> = ({ products }) => {
     >
       <thead className="bg-gray-100 sticky top-0 z-10">
         <tr>
-          <th>Código</th>
+          <th>Cod</th>
           <th>Nome</th>
           {!category && <th>Descrição</th>}
           <th>Categoria</th>
