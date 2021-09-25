@@ -47,9 +47,9 @@ const ProductsPage = () => {
         </div>
       </Modal>
 
-      <section className="flex mt-10 text-center mx-5">
+      <section className="flex mt-10 text-center mx-5 relative">
         <Sidebar />
-        <div className="table-section bg-white rounded-md shadow-md w-full">
+        <div className="table-section rounded-md w-full">
           {activeTab === 'products' ? (
             <ProductList products={products} />
           ) : (

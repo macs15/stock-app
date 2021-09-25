@@ -4,7 +4,7 @@ import ActionsSection from './ActionsSection'
 
 const Sidebar: FC<SidebarProps> = ({}) => {
   return (
-    <aside className="bg-white mr-5 p-5 shadow-md rounded-md max-w-sm w-1/3">
+    <aside className="bg-white z-10 sticky sidebar mr-5 p-5 shadow-md rounded-md max-w-sm w-1/3">
       <ActionsSection />
     </aside>
   )

@@ -20,7 +20,7 @@ const useProductForm = (values?: Products) => {
     resolver: joiResolver(ProductFormSchema),
     defaultValues
   })
-  const { setProducts, products = [], setCurrentProduct } = useProductsContext()
+  const { setProducts, products = [], setCurrentProduct, setActiveProduct } = useProductsContext()
   const { closeModal } = useModalContext()
   const [notify, setNotify] = useState<Notify | null>(null)
   const [sending, setSending] = useState(false)
@@ -46,6 +46,7 @@ const useProductForm = (values?: Products) => {
     if (values?.id) {
       setProducts([...products.filter(p => p.id !== values.id), productResponse])
       setCurrentProduct() // cleanup
+      setActiveProduct() // cleanup
       closeModal()
       alert('Produto atualizado con sucesso')
       return

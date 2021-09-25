@@ -9,8 +9,8 @@ import { useProductsContext } from 'components/context/productContext'
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-const useSellForm = (activeProduct: Products) => {
-  const { name, in_stock, id, provider_cost } = activeProduct
+const useSellForm = (activeProduct: Products, type: TransactionType) => {
+  const { in_stock, id, provider_cost } = activeProduct
   const { setProducts, products = [], setActiveProduct } = useProductsContext()
   const { setHistorical, historical } = useHistoricalContext()
   const [sending, setSending] = useState(false)
@@ -20,6 +20,7 @@ const useSellForm = (activeProduct: Products) => {
     clearErrors,
     reset,
     setError,
+    setValue,
     watch,
     formState: { errors }
   } = useForm<SellForm>({
@@ -31,7 +32,7 @@ const useSellForm = (activeProduct: Products) => {
     const { productQty, pricePerProduct } = data
     setSending(true)
 
-    if (productQty > activeProduct.in_stock) {
+    if (productQty > activeProduct.in_stock && type === 'out') {
       setError('productQty', {
         type: 'manual',
         message: 'A quantidade encomendada é maior que o estoque'
@@ -46,13 +47,13 @@ const useSellForm = (activeProduct: Products) => {
 
     const productResponse = await productsAPI.updateProduct(id, {
       ...activeProduct,
-      in_stock: in_stock - productQty
+      in_stock: type === 'entry' ? in_stock + productQty : in_stock - productQty
     })
 
     const newHistorical: HistoricalStock = {
       date: new Date(),
       product_id: id,
-      transaction_type: 'Saída',
+      transaction_type: type === 'entry' ? 'Entrada' : 'Saída',
       total_price: pricePerProduct * productQty,
       quantity: productQty
     }
@@ -86,7 +87,9 @@ const useSellForm = (activeProduct: Products) => {
     setActiveProduct(productResponse)
     reset()
     setSending(false)
-    alert('Venda acrescentada com sucesso')
+    timer = setTimeout(() => {
+      alert('Venda acrescentada com sucesso')
+    }, 300)
   }
 
   useEffect(() => {
@@ -103,14 +106,14 @@ const useSellForm = (activeProduct: Products) => {
     return price * qty
   }
   return {
-    name,
     provider_cost,
     sending,
     register,
     handleSubmit,
     errors,
     onSubmit,
-    getTotal
+    getTotal,
+    setValue
   }
 }
 
@@ -118,5 +121,7 @@ export type SellForm = {
   pricePerProduct: number
   productQty: number
 }
+
+type TransactionType = 'entry' | 'out'
 
 export default useSellForm

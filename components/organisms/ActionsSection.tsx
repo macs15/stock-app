@@ -2,6 +2,7 @@ import Button from '@atoms/Button'
 import { FC, useEffect, useState } from 'react'
 
 import { useProductsContext } from '../context/productContext'
+import EntryForm from './EntryForm'
 import SellForm from './SellForm'
 
 const ActionsSection: FC<ActionsSectionProps> = ({}) => {
@@ -34,7 +35,16 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
             Voltar
           </button>
         )}
-        <h3 className="text-lg font-bold">Ações</h3>
+        <h3 className="text-lg font-bold">
+          {active ? (tab === 'sell' ? 'Nova venda' : 'Cadastrar entrada') : 'Ações'}
+        </h3>
+        {activeProduct && (
+          <div className="relative">
+            <h3 className="w-full text-lg font-semibold my-5 whitespace-nowrap overflow-ellipsis overflow-hidden">
+              {activeProduct.name}
+            </h3>
+          </div>
+        )}
       </div>
       {activeProduct && !active && (
         <div className=" px-5 my-10 flex flex-col">
@@ -52,6 +62,7 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
       )}
 
       {tab === 'sell' && activeProduct && <SellForm activeProduct={activeProduct} />}
+      {tab === 'entry' && activeProduct && <EntryForm activeProduct={activeProduct} />}
     </div>
   )
 }

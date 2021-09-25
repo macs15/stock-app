@@ -5,7 +5,7 @@ import { FC } from 'react'
 
 const TransactionsList: FC<TransactionsListProps> = ({ transactions }) => {
   return (
-    <section className="bg-white rounded-md p-5 mx-auto shadow-md table-section">
+    <section className="rounded-md p-5 mx-auto bg-white shadow-md h-full table-section">
       <h2 className="mb-5 text-xl font-bold">Movimento Estoque</h2>
       <table cellSpacing={12} cellPadding={12} className="w-full">
         <thead>
@@ -21,7 +21,7 @@ const TransactionsList: FC<TransactionsListProps> = ({ transactions }) => {
           </tr>
         </thead>
         {transactions.length ? (
-          <tbody className="text-left">
+          <tbody className="text-left h-full">
             {transactions.map(t => (
               <TransactionItem key={t.id} transaction={t} />
             ))}

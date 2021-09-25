@@ -1,4 +1,5 @@
 import InputForm from '@atoms/InputForm'
+import SubmitButton from '@atoms/SubmitButton'
 import { Products } from '@interfaces/product-service.interface'
 import { FC } from 'react'
 
@@ -6,16 +7,11 @@ import useSellForm from '../hooks/useSellForm'
 
 const SellForm: FC<SellFormProps> = ({ activeProduct }) => {
   const { in_stock } = activeProduct
-  const { name, provider_cost, sending, register, handleSubmit, errors, onSubmit, getTotal } =
-    useSellForm(activeProduct)
+  const { provider_cost, sending, register, handleSubmit, errors, onSubmit, getTotal } =
+    useSellForm(activeProduct, 'out')
 
   return (
     <>
-      <div className="relative">
-        <h3 className="w-full text-lg font-semibold my-5 whitespace-nowrap overflow-ellipsis overflow-hidden">
-          {name}
-        </h3>
-      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
         <InputForm
           type="number"
@@ -35,12 +31,7 @@ const SellForm: FC<SellFormProps> = ({ activeProduct }) => {
         <p className="mb-5">
           Total venda: <span className="font-semibold">R$ {getTotal()}</span>
         </p>
-        <input
-          disabled={sending}
-          className="bg-blue-500 rounded-md cursor-pointer text-white px-2 py-1 w-1/2"
-          type="submit"
-          value={sending ? 'Enviando...' : 'Enviar'}
-        />
+        <SubmitButton disabled={sending} value={sending ? 'Enviando...' : 'Enviar'} />
       </form>
     </>
   )

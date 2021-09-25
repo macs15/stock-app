@@ -12,7 +12,11 @@ const ProductList: FC<ProductListProps> = ({ products }) => {
     )
 
   return (
-    <table cellSpacing={12} cellPadding={12} className="w-full relative">
+    <table
+      cellSpacing={12}
+      cellPadding={12}
+      className="w-full h-full shadow-md rounded-md bg-white relative"
+    >
       <thead className="bg-gray-100 sticky top-0 z-10">
         <tr>
           <th>Código</th>

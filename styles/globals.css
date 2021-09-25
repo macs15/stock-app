@@ -33,6 +33,11 @@ a {
   height: var(--header-height);
 }
 
+.sidebar {
+  top: var(--header-height);
+  height: calc(calc(100vh - var(--header-height)) - 2.5rem);
+}
+
 tbody {
   max-height: var(--table-max-height);
 }
