@@ -1,52 +1,21 @@
 import InputForm from '@atoms/InputForm'
-import { SellFormSchema } from '@helpers/sell-form-schema'
-import { joiResolver } from '@hookform/resolvers/joi'
 import { Products } from '@interfaces/product-service.interface'
-import { FC, useEffect, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { FC } from 'react'
+
+import useSellForm from '../hooks/useSellForm'
 
 const SellForm: FC<SellFormProps> = ({ activeProduct }) => {
-  const { name, in_stock, provider_cost } = activeProduct
-  const [sending, setSending] = useState(false)
-  const {
-    register,
-    handleSubmit,
-    clearErrors,
-    reset,
-    setError,
-    formState: { errors }
-  } = useForm<ProductsForm>({
-    resolver: joiResolver(SellFormSchema)
-  })
-  let timer: NodeJS.Timer
-
-  const onSubmit: SubmitHandler<ProductsForm> = data => {
-    setSending(true)
-
-    if (data.productQty > activeProduct.in_stock) {
-      setError('productQty', {
-        type: 'value',
-        message: 'A quantidade encomendada é maior que o estoque'
-      })
-
-      timer = setTimeout(() => {
-        clearErrors('productQty')
-      }, 2000)
-      return
-    }
-  }
-
-  useEffect(() => {
-    return () => {
-      clearTimeout(timer)
-    }
-  }, [])
+  const { in_stock } = activeProduct
+  const { name, provider_cost, sending, register, handleSubmit, errors, onSubmit, getTotal } =
+    useSellForm(activeProduct)
 
   return (
     <>
-      <h3 className="w-full text-lg font-semibold my-5 whitespace-nowrap overflow-ellipsis overflow-hidden">
-        {name}
-      </h3>
+      <div className="relative">
+        <h3 className="w-full text-lg font-semibold my-5 whitespace-nowrap overflow-ellipsis overflow-hidden">
+          {name}
+        </h3>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="mb-5">
         <InputForm
           type="number"
@@ -63,10 +32,14 @@ const SellForm: FC<SellFormProps> = ({ activeProduct }) => {
           error={errors.pricePerProduct?.message}
           register={() => register('pricePerProduct')}
         />
+        <p className="mb-5">
+          Total venda: <span className="font-semibold">R$ {getTotal()}</span>
+        </p>
         <input
           disabled={sending}
           className="bg-blue-500 rounded-md cursor-pointer text-white px-2 py-1 w-1/2"
           type="submit"
+          value={sending ? 'Enviando...' : 'Enviar'}
         />
       </form>
     </>
@@ -75,11 +48,6 @@ const SellForm: FC<SellFormProps> = ({ activeProduct }) => {
 
 type SellFormProps = {
   activeProduct: Products
-}
-
-export type ProductsForm = {
-  pricePerProduct: number
-  productQty: number
 }
 
 export default SellForm

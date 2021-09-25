@@ -6,6 +6,7 @@ const useProducts = () => {
   const [products, setProducts] = useState<Products[]>()
   const [currentProduct, setCurrentProduct] = useState<Products | undefined>()
   const [activeProduct, setActiveProduct] = useState<Products | undefined>()
+  const [activeTab, setActiveTab] = useState<string>('products')
 
   const getProducts = async () => {
     const productsResponse = await productsAPI.getProducts()
@@ -16,13 +17,19 @@ const useProducts = () => {
     getProducts()
   }, [])
 
+  useEffect(() => {
+    setActiveProduct(undefined)
+  }, [activeTab])
+
   return {
     products,
     setProducts,
     currentProduct,
     setCurrentProduct,
     activeProduct,
-    setActiveProduct
+    setActiveProduct,
+    activeTab,
+    setActiveTab
   }
 }
 

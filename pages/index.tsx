@@ -4,13 +4,17 @@ import Modal from '@molecules/Modal'
 import ProductForm from '@organisms/ProductForm'
 import ProductList from '@organisms/ProductList'
 import Sidebar from '@organisms/Sidebar'
+import TransactionsList from '@organisms/TransactionsList'
+import { useHistoricalContext } from 'components/context/historicalContext'
 import { useModalContext } from 'components/context/modalContext'
 import { useProductsContext } from 'components/context/productContext'
 import { useEffect, useRef } from 'react'
 import { useClickAway } from 'react-use'
 
 const ProductsPage = () => {
-  const { products, currentProduct, setCurrentProduct, setActiveProduct } = useProductsContext()
+  const { products, currentProduct, setCurrentProduct, setActiveProduct, setActiveTab, activeTab } =
+    useProductsContext()
+  const { historical } = useHistoricalContext()
   const { open, openModal, closeModal } = useModalContext()
   const ref = useRef<HTMLDivElement>(null)
   useClickAway(ref, () => {
@@ -32,7 +36,7 @@ const ProductsPage = () => {
 
   return (
     <div className="w-full mt-24 mb-5">
-      <NavigationBar title="Produtos">
+      <NavigationBar activeTab={activeTab} setActiveTab={setActiveTab}>
         <Button text="Adicionar produto" onClick={openModal} />
       </NavigationBar>
 
@@ -46,7 +50,11 @@ const ProductsPage = () => {
       <section className="flex mt-10 text-center mx-5">
         <Sidebar />
         <div className="table-section bg-white rounded-md shadow-md w-full">
-          <ProductList products={products} />
+          {activeTab === 'products' ? (
+            <ProductList products={products} />
+          ) : (
+            historical && <TransactionsList transactions={historical} />
+          )}
         </div>
       </section>
     </div>

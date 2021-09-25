@@ -24,7 +24,18 @@ const ActionsSection: FC<ActionsSectionProps> = ({}) => {
 
   return (
     <div className={`w-full ${activeProduct ? '' : 'h-32'}`}>
-      <h3 className="text-xl font-bold">Ações</h3>
+      <div className="relative">
+        {active && (
+          <button
+            className="text-blue-400 bg-gray-100 px-2 py-1 rounded-md absolute left-0"
+            type="button"
+            onClick={() => setActiveTab({ tab: null, active: false })}
+          >
+            Voltar
+          </button>
+        )}
+        <h3 className="text-lg font-bold">Ações</h3>
+      </div>
       {activeProduct && !active && (
         <div className=" px-5 my-10 flex flex-col">
           <Button onClick={handleNewSell} className="w-full shadow-md" text="Nova venda" />

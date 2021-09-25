@@ -21,12 +21,9 @@ const TransactionsList: FC<TransactionsListProps> = ({ transactions }) => {
           </tr>
         </thead>
         {transactions.length ? (
-          <tbody>
+          <tbody className="text-left">
             {transactions.map(t => (
-              <>
-                <TransactionItem key={t.id} transaction={t} />
-                <TransactionItem key={t.id + 1} transaction={t} />
-              </>
+              <TransactionItem key={t.id} transaction={t} />
             ))}
           </tbody>
         ) : (

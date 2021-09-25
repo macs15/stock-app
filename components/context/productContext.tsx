@@ -6,9 +6,11 @@ interface ContextProps {
   products: Products[] | undefined
   currentProduct: Products | undefined
   activeProduct: Products | undefined
+  activeTab: string
   setProducts: (products: Products[]) => void
   setCurrentProduct: (product?: Products) => void
   setActiveProduct: (product?: Products) => void
+  setActiveTab: (tab: string) => void
 }
 
 export const ProductsContext = createContext({} as ContextProps)
@@ -20,7 +22,9 @@ export const ProductsProvider: FC = ({ children }) => {
     currentProduct,
     setCurrentProduct,
     setActiveProduct,
-    activeProduct
+    activeProduct,
+    activeTab,
+    setActiveTab
   } = useProducts()
 
   return (
@@ -31,7 +35,9 @@ export const ProductsProvider: FC = ({ children }) => {
         currentProduct,
         setCurrentProduct,
         activeProduct,
-        setActiveProduct
+        setActiveProduct,
+        activeTab,
+        setActiveTab
       }}
     >
       {children}

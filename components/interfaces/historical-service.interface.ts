@@ -1,5 +1,5 @@
 export interface HistoricalStock {
-  id: number
+  id?: number
   product_id: number
   transaction_type: TransactionType
   total_price: number
